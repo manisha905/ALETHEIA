@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALETHEIA · CASEMIND AI | Glassmorphism Edition</title>
+  <meta name="description" content="ALETHEIA · CASEMIND AI - Glassmorphism Edition. Secure decision-support system for law enforcement. Reveal the concealed.">
+  
+  <!-- Typography & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles_glass.css">
+</head>
+<body class="crt-overlay">
+
+  <!-- Matrix Code Rain Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- TOP LED RUNNING DISPLAY -->
+  <div class="led-bar-container" id="led-container">
+    <div class="led-bar-header">
+      <div class="led-status-badge"><span class="pulse-dot"></span> DASHBOARD</div>
+      <div class="led-controls">
+        <button id="led-mode-btn" class="led-btn" title="Toggle Grid / Smooth Mode">[ GRID MODE ]</button>
+      </div>
+    </div>
+    <div class="led-display-wrapper">
+      <canvas id="led-canvas" height="45"></canvas>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="glass_index.html" class="brand-logo" id="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <span class="brand-name">ALETHEIA</span>
+          <span class="brand-sub">CASEMIND AI</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="glass_index.html" class="nav-link active" id="nav-home-link">HOME</a>
+        <a href="#vision" class="nav-link" id="nav-vision-link">VISION</a>
+        <a href="#about" class="nav-link" id="nav-about-link">ABOUT US</a>
+      </nav>
+
+      <!-- GLASS SEPARATE PAGE LINKS FOR LOGIN AND REGISTER -->
+      <div class="nav-actions">
+        <a href="glass_login.html" class="btn btn-outline btn-login-magenta" id="btn-nav-login">LOGIN</a>
+        <a href="glass_register.html" class="btn btn-outline" id="btn-nav-register">REGISTER</a>
+      </div>
+
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main>
+
+    <!-- HERO / HOME SECTION -->
+    <section id="home" class="hero-section section-padding">
+      <div class="container">
+        
+        <div class="hero-grid-v2">
+          
+          <!-- LEFT COLUMN: CONTENT, MOTTO, FORENSICS BANNER -->
+          <div class="hero-left-col">
+            <div class="terminal-tag">
+              <span class="tag-icon">🔒</span> CLASSIFIED // LAW ENFORCEMENT DECISION-SUPPORT PORTAL
+            </div>
+            
+            <h1 class="hero-title">
+              ALETHEIA <span class="glow-text">·</span> CASEMIND AI
+            </h1>
+
+            <!-- PROMINENT LEFT-ALIGNED MOTTO LINE -->
+            <div class="hero-motto">
+              <span class="motto-text">"JUSTICE DELAYED IS JUSTICE DENIED!"</span>
+            </div>
+
+            <h2 class="hero-subtitle">
+              REVEAL THE CONCEALED. SECURE MULTI-HYPOTHESIS INVESTIGATIVE INTELLIGENCE SYSTEM.
+            </h2>
+
+            <p class="hero-description">
+              Investigations stall when voluminous evidence and fragmented caseloads overwhelm manual review. 
+              <strong>ALETHEIA · CASEMIND AI</strong> provides an explainable decision-support environment for law enforcement departments—uncovering buried contradictions, cross-checking alibis, and unlocking cold cases.
+            </p>
+
+            <div class="forensics-banner-card">
+              <div class="forensics-title-banner">
+                <span class="pulse-dot"></span> LET'S DECODE THE CASE TOGETHER
+              </div>
+              <div class="forensics-image-wrapper">
+                <img src="forensics_banner.png" alt="Forensics Evidence Analysis - Let's Decode the Case Together" class="forensics-img">
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: BANNER GRAPHIC & IMPACT FEATURE PANELS -->
+          <div class="hero-right-col">
+            
+            <!-- STATIC BANNER DISPLAY -->
+            <div class="banner-image-container">
+              <img src="cta_banner.png" alt="ALETHEIA Access Protocol Banner" class="static-cta-banner">
+            </div>
+
+            <!-- KEY IMPACT CARDS STACK -->
+            <div class="impact-cards-column">
+              <div class="impact-card">
+                <div class="impact-icon">⌛</div>
+                <h3>Break Cold Cases</h3>
+                <p>Prevent active leads from going cold by linking fragmented evidence across jurisdictions.</p>
+              </div>
+              <div class="impact-card">
+                <div class="impact-icon">🔍</div>
+                <h3>Uncover Contradictions</h3>
+                <p>Detect hidden alibi mismatches and statement discrepancies automatically.</p>
+              </div>
+              <div class="impact-card">
+                <div class="impact-icon">⚖️</div>
+                <h3>Eliminate Cognitive Bias</h3>
+                <p>Synthesize alternative hypotheses to protect against confirmation bias and wrongful outcomes.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VISION SECTION -->
+    <section id="vision" class="section-padding bg-darker">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag">[ FUTURE HORIZONS ]</div>
+          <h2 class="section-title">OUR VISION & FUTURE GOALS</h2>
+          <p class="section-subtitle">Transforming investigative intelligence into a zero-bias, precision-driven science.</p>
+        </div>
+
+        <div class="vision-grid">
+          
+          <div class="vision-card">
+            <div class="vision-icon">🛰️</div>
+            <h3>ZERO COLD CASES</h3>
+            <p>
+              Our primary goal is a world where no cold case is left unsolved due to lost leads or fragmented evidence across jurisdictional boundaries.
+            </p>
+          </div>
+
+          <div class="vision-card">
+            <div class="vision-icon">⚖️</div>
+            <h3>PREVENT WRONGFUL CONVICTIONS</h3>
+            <p>
+              By rigorously testing alternative hypotheses and uncovering contradictions early, ALETHEIA protects innocent lives from confirmation bias.
+            </p>
+          </div>
+
+          <div class="vision-card">
+            <div class="vision-icon">🌐</div>
+            <h3>INTER-AGENCY INTELLIGENCE SHARING</h3>
+            <p>
+              Empowering law enforcement agencies with secure, privacy-preserving cross-jurisdictional evidence matching to dismantle organized networks.
+            </p>
+          </div>
+
+          <div class="vision-card">
+            <div class="vision-icon">🛡️</div>
+            <h3>AUDITABLE COURTROOM EVIDENTIARY INTEGRITY</h3>
+            <p>
+              Every finding emitted by ALETHEIA is backed by exact page-level citations and Vault encrypted signatures, guaranteeing 100% explainable judicial chain of custody.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="vision-quote-box text-center">
+          <blockquote class="glow-text">
+            "JUSTICE DELAYED IS JUSTICE DENIED! Our ultimate vision is to empower every investigator with unyielding clarity, speed up justice for victims' families, and ensure truth always prevails."
+          </blockquote>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT US & CONTACT SECTION -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag">[ MISSION & DIRECT CONTACT ]</div>
+          <h2 class="section-title">ABOUT US & HELP DESK</h2>
+          <p class="section-subtitle">Dedicated to serving law enforcement agencies, judicial bodies, and investigative task forces.</p>
+        </div>
+
+        <div class="about-grid">
+          
+          <div class="about-text-box">
+            <h3>WHO WE ARE & HOW WE ARE MAKING THE WORLD A BETTER PLACE</h3>
+            <p>
+              <strong>ALETHEIA · CASEMIND AI</strong> was created to eliminate the tragic bottleneck of unresolved cases and unmanageable evidence backlogs.
+            </p>
+            <p>
+              Every day, dedicated investigators spend hundreds of hours manually reviewing thousands of pages of conflicting witness statements, call logs, and crime scene reports. Human cognitive limits inevitably lead to missed micro-correlations and delayed justice.
+            </p>
+            <p>
+              By unifying unstructured evidence into structured, explainable intelligence, <strong>ALETHEIA</strong> empowers investigators to see the complete picture, protect innocent citizens, and bring long-overdue answers to families and communities.
+            </p>
+
+            <div class="contact-details-box">
+              <h4>DIRECT AGENCY HELP & CONTACT DETAILS</h4>
+              <ul class="contact-info-list">
+                <li>
+                  <span class="info-icon">📞</span>
+                  <div>
+                    <strong>24/7 TACTICAL HELP HOTLINE:</strong>
+                    <div>+1 (800) 555-CASE / +91 (011) 2301-ALETHEIA</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-icon">✉️</span>
+                  <div>
+                    <strong>OFFICIAL ENCRYPTED EMAIL:</strong>
+                    <div>investigations@aletheia-casemind.ai / helpdesk@aletheia.gov.in</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-icon">🏢</span>
+                  <div>
+                    <strong>DEFENSE & INTELLIGENCE HEADQUARTERS:</strong>
+                    <div>ALETHEIA Systems Tower, Cyber Command Zone, Suite 900</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="contact-form-box">
+            <div class="form-header">
+              <h3>SECURE INQUIRY / HELP DESK FORM</h3>
+              <p>For Law Enforcement Officers, Investigators & Judicial Support</p>
+            </div>
+            
+            <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label for="contact-name">FULL NAME / RANK:</label>
+                <input type="text" id="contact-name" class="form-input" placeholder="e.g. Inspector A. Kumar" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-agency">DEPARTMENT NAME / ID:</label>
+                <input type="text" id="contact-agency" class="form-input" placeholder="e.g. Metro Cyber Branch / DEPT-04" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email">DEPARTMENT EMAIL ADDRESS:</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="e.g. officer@police.gov.in" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-phone">CONTACT PHONE NUMBER:</label>
+                <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +91 9876543210" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">INQUIRY / HELP REQUEST DETAILS:</label>
+                <textarea id="contact-message" class="form-input" rows="4" placeholder="Describe your inquiry or requested deployment timeframe..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-outline btn-block" id="btn-submit-contact">
+                ⚡ TRANSMIT SECURE INQUIRY
+              </button>
+            </form>
+
+            <div id="contact-response" class="terminal-response-box hidden"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CLEAN SINGLE-LINE FOOTER -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-only">
+        <div class="copyright">
+          © 2026 ALETHEIA · CASEMIND AI. All rights reserved. Sovereign Law Enforcement Intelligence System.
+        </div>
+        <div class="terminal-clock" id="live-terminal-clock">
+          UTC: 2026-10-03 00:09:00 | STATUS: ENCRYPTED
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app_glass.js"></script>
+</body>
+</html>

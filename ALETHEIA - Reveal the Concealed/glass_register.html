@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEPARTMENT REGISTRATION | ALETHEIA · CASEMIND AI (Glassmorphism)</title>
+  <meta name="description" content="Register your law enforcement department for ALETHEIA · CASEMIND AI. Email OTP verification & Unique Ajex_ID provisioning.">
+  
+  <!-- Typography & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles_glass.css">
+</head>
+<body class="crt-overlay">
+
+  <!-- Matrix Code Rain Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- TOP LED RUNNING DISPLAY -->
+  <div class="led-bar-container" id="led-container">
+    <div class="led-bar-header">
+      <div class="led-status-badge"><span class="pulse-dot"></span> REGISTER DEPARTMENT</div>
+      <div class="led-controls">
+        <button id="led-mode-btn" class="led-btn" title="Toggle Grid / Smooth Mode">[ GRID MODE ]</button>
+      </div>
+    </div>
+    <div class="led-display-wrapper">
+      <canvas id="led-canvas" height="45"></canvas>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="glass_index.html" class="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <span class="brand-name">ALETHEIA</span>
+          <span class="brand-sub">DEPARTMENT REGISTRATION</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="glass_index.html" class="nav-link">HOME</a>
+        <a href="glass_index.html#vision" class="nav-link">VISION</a>
+        <a href="glass_index.html#about" class="nav-link">ABOUT US</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="glass_login.html" class="btn btn-outline btn-login-magenta">DEPARTMENT LOGIN</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="section-padding">
+    <div class="container">
+      
+      <div class="page-auth-box">
+        <div class="auth-box-header text-center">
+          <div class="terminal-tag"><span class="tag-icon">🔒</span> VAULT ONBOARDING PORTAL</div>
+          <h2>DEPARTMENT REGISTRATION</h2>
+          <p class="motto-subtext">"JUSTICE DELAYED IS JUSTICE DENIED!"</p>
+          <p>Submit official department details to receive your unique <strong>Ajex_ID</strong></p>
+        </div>
+
+        <div class="auth-box-body">
+          
+          <form id="standalone-reg-form" onsubmit="handleStandaloneRegisterStep1(event)">
+            <div class="form-group">
+              <label for="reg-dept-name">DEPARTMENT NAME:</label>
+              <input type="text" id="reg-dept-name" class="form-input" placeholder="e.g. Metro Cyber Crime Branch" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-dept-id">DEPARTMENT ID / CODE:</label>
+              <input type="text" id="reg-dept-id" class="form-input" placeholder="e.g. DEPT-DEL-NORTH-04" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-dept-email">DEPARTMENT EMAIL:</label>
+              <input type="email" id="reg-dept-email" class="form-input" placeholder="admin@police.gov.in" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-dept-password">PASSWORD:</label>
+              <input type="password" id="reg-dept-password" class="form-input" placeholder="••••••••••••" minlength="6" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-dept-confirm-password">CONFIRM PASSWORD:</label>
+              <input type="password" id="reg-dept-confirm-password" class="form-input" placeholder="••••••••••••" minlength="6" required>
+            </div>
+
+            <button type="submit" class="btn btn-outline btn-block btn-lg" style="margin-top: 20px;">
+              📩 SEND OTP TO DEPARTMENT EMAIL
+            </button>
+          </form>
+
+          <form id="standalone-otp-form" class="hidden" onsubmit="handleStandaloneRegisterOTPVerify(event)">
+            <div class="form-header text-center">
+              <h3>EMAIL OTP VERIFICATION</h3>
+              <p>Enter the 6-digit verification code sent to <strong id="otp-sent-email-display" class="highlight-green">--</strong></p>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-otp-code">ENTER 6-DIGIT EMAIL OTP:</label>
+              <input type="text" id="reg-otp-code" class="form-input text-center font-lg" placeholder="123456" maxlength="6" required>
+              <div class="form-help-text">Simulated Email OTP code: <span id="simulated-otp-code" class="highlight-yellow">884920</span></div>
+            </div>
+
+            <button type="submit" class="btn btn-outline btn-block btn-lg">
+              ⚡ VERIFY OTP & ISSUE Ajex_ID
+            </button>
+          </form>
+
+          <div id="standalone-reg-success-box" class="hidden text-center">
+            <div class="form-header">
+              <div class="success-icon">🎉</div>
+              <h3>DEPARTMENT REGISTRATION SUCCESSFUL</h3>
+              <p>Your unique Department ID has been encrypted and issued via Vault Backend</p>
+            </div>
+            
+            <div class="ajex-card">
+              <div class="ajex-label">YOUR UNIQUE DEPARTMENT ID (Ajex_ID):</div>
+              <div class="ajex-value" id="generated-ajex-id">AJEX-XXXX-XXXX</div>
+              <div class="ajex-subtext">IMPORTANT: SAVE THIS ID! You will need your <strong>Ajex_ID</strong> + Email + Password to log in.</div>
+            </div>
+
+            <a href="glass_login.html" class="btn btn-outline btn-block btn-lg btn-login-magenta" style="margin-top: 25px;">
+              🔓 PROCEED TO LOGIN PAGE WITH Ajex_ID
+            </a>
+          </div>
+
+          <div id="auth-status-msg" class="terminal-response-box hidden"></div>
+
+          <div class="auth-footer-link text-center" style="margin-top: 25px;">
+            <span>Already registered your department? </span>
+            <a href="glass_login.html" class="highlight-magenta">Click here to Login with Ajex_ID</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-only">
+        <div class="copyright">
+          © 2026 ALETHEIA · CASEMIND AI. All rights reserved. Sovereign Law Enforcement Intelligence System.
+        </div>
+        <div class="terminal-clock" id="live-terminal-clock">
+          UTC: 2026-10-03 00:09:00 | STATUS: ENCRYPTED
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app_glass.js"></script>
+</body>
+</html>

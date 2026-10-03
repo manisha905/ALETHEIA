@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEPARTMENT LOGIN | ALETHEIA · CASEMIND AI (Glassmorphism)</title>
+  <meta name="description" content="Department Login portal for ALETHEIA · CASEMIND AI. Authenticate via Ajex_ID, Email & Vault JWT token.">
+  
+  <!-- Typography & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles_glass.css">
+</head>
+<body class="crt-overlay">
+
+  <!-- Matrix Code Rain Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- TOP LED RUNNING DISPLAY -->
+  <div class="led-bar-container" id="led-container">
+    <div class="led-bar-header">
+      <div class="led-status-badge badge-magenta"><span class="pulse-dot pulse-magenta"></span> LOGIN DEPARTMENT</div>
+      <div class="led-controls">
+        <button id="led-mode-btn" class="led-btn" title="Toggle Grid / Smooth Mode">[ GRID MODE ]</button>
+      </div>
+    </div>
+    <div class="led-display-wrapper">
+      <canvas id="led-canvas" height="45"></canvas>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="glass_index.html" class="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <span class="brand-name">ALETHEIA</span>
+          <span class="brand-sub">DEPARTMENT LOGIN</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="glass_index.html" class="nav-link">HOME</a>
+        <a href="glass_index.html#vision" class="nav-link">VISION</a>
+        <a href="glass_index.html#about" class="nav-link">ABOUT US</a>
+      </nav>
+
+      <div class="nav-actions" id="nav-actions-public">
+        <a href="glass_register.html" class="btn btn-outline">REGISTER DEPARTMENT</a>
+      </div>
+
+      <div class="nav-actions hidden" id="nav-actions-auth">
+        <div class="user-badge" id="nav-user-badge">
+          <span class="pulse-dot"></span> <span id="user-ajex-display">Ajex_ID: --</span>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="handleLogout()">LOGOUT</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="section-padding">
+    <div class="container">
+      
+      <!-- UNAUTHENTICATED LOGIN BOX -->
+      <div class="page-auth-box" id="login-view-box">
+        <div class="auth-box-header text-center">
+          <div class="terminal-tag"><span class="tag-icon">🔒</span> CLASSIFIED ACCESS PORTAL</div>
+          <h2>DEPARTMENT LOGIN</h2>
+          <p class="motto-subtext">"JUSTICE DELAYED IS JUSTICE DENIED!"</p>
+          <p>Enter your <strong>Ajex_ID</strong>, Department Email & Password to unlock case intelligence</p>
+        </div>
+
+        <div class="auth-box-body">
+          
+          <form id="standalone-login-form" onsubmit="handleStandaloneLoginSubmit(event)">
+            <div class="form-group">
+              <label for="login-ajex-id">UNIQUE DEPARTMENT ID (Ajex_ID):</label>
+              <input type="text" id="login-ajex-id" class="form-input" placeholder="e.g. AJEX-9842-DEL" required>
+            </div>
+
+            <div class="form-group">
+              <label for="login-dept-email">REGISTERED DEPARTMENT EMAIL:</label>
+              <input type="email" id="login-dept-email" class="form-input" placeholder="admin@police.gov.in" required>
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">PASSWORD:</label>
+              <input type="password" id="login-password" class="form-input" placeholder="••••••••••••" required>
+            </div>
+
+            <div class="form-flex-row">
+              <a href="javascript:void(0)" onclick="openForgotPasswordView()" class="forgot-link highlight-magenta">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-outline btn-block btn-lg btn-login-magenta" style="margin-top: 20px;">
+              🔓 AUTHENTICATE & ACCESS CASE DASHBOARD
+            </button>
+          </form>
+
+          <!-- FORGOT PASSWORD VIEW -->
+          <div id="forgot-password-view" class="hidden">
+            <div class="form-header text-center">
+              <h3>FORGOT PASSWORD RECOVERY</h3>
+              <p>Send reset OTP code to registered department email linked to Ajex_ID</p>
+            </div>
+
+            <form id="standalone-forgot-step1" onsubmit="handleStandaloneForgotRequest(event)">
+              <div class="form-group">
+                <label for="forgot-ajex-id">YOUR UNIQUE DEPARTMENT ID (Ajex_ID):</label>
+                <input type="text" id="forgot-ajex-id" class="form-input" placeholder="e.g. AJEX-9842-DEL" required>
+              </div>
+
+              <div class="form-group">
+                <label for="forgot-email">REGISTERED DEPARTMENT EMAIL:</label>
+                <input type="email" id="forgot-email" class="form-input" placeholder="admin@police.gov.in" required>
+              </div>
+
+              <button type="submit" class="btn btn-outline btn-block btn-lg btn-login-magenta">
+                📩 SEND RESET OTP TO DEPARTMENT EMAIL
+              </button>
+            </form>
+
+            <form id="standalone-forgot-step2" class="hidden" onsubmit="handleStandaloneForgotReset(event)">
+              <div class="form-group">
+                <label for="forgot-otp-input">6-DIGIT RESET OTP:</label>
+                <input type="text" id="forgot-otp-input" class="form-input text-center font-lg" placeholder="654321" maxlength="6" required>
+                <div class="form-help-text">Simulated OTP code: <span id="simulated-forgot-otp" class="highlight-yellow">654321</span></div>
+              </div>
+
+              <div class="form-group">
+                <label for="forgot-new-pass">NEW PASSWORD:</label>
+                <input type="password" id="forgot-new-pass" class="form-input" placeholder="••••••••••••" minlength="6" required>
+              </div>
+
+              <button type="submit" class="btn btn-outline btn-block btn-lg btn-login-magenta">
+                🔐 RESET PASSWORD & RETURN TO LOGIN
+              </button>
+            </form>
+
+            <button class="btn btn-outline btn-block" onclick="closeForgotPasswordView()" style="margin-top: 15px;">
+              ← Back to Login
+            </button>
+          </div>
+
+          <div id="auth-status-msg" class="terminal-response-box hidden" style="margin-top: 15px;"></div>
+
+          <div class="auth-footer-link text-center" style="margin-top: 25px;">
+            <span>New Department? </span>
+            <a href="glass_register.html" class="highlight-green">Register your Department to get an Ajex_ID</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AUTHENTICATED OFFICER CASE DASHBOARD -->
+      <div id="authenticated-dashboard" class="hidden">
+        <div class="dashboard-header-bar">
+          <div class="dash-title-group">
+            <span class="badge badge-success">VAULT VERIFIED SESSION</span>
+            <h2 class="highlight-white" style="margin-top: 8px;">OFFICER INVESTIGATIVE DASHBOARD</h2>
+          </div>
+          <div class="dash-jwt-info">
+            <button class="btn btn-outline btn-sm btn-login-magenta" onclick="handleLogout()">LOGOUT</button>
+          </div>
+        </div>
+
+        <div class="section-header text-center" style="margin-top: 30px;">
+          <div class="section-tag">[ ACTIVE CASE TOPOLOGY & HYPOTHESIS ENGINE ]</div>
+          <h3 class="section-title">EVIDENCE REASONING & LINK ANALYSIS</h3>
+        </div>
+
+        <div class="demo-dashboard">
+          
+          <div class="demo-panel left-panel">
+            <div class="panel-header">
+              <h3>EVIDENCE CONTRADICTIONS FLAGGED</h3>
+              <span class="badge badge-warning" id="contradiction-count">3 CONFLICTS DETECTED</span>
+            </div>
+            <div class="panel-body" id="contradiction-feed">
+              <div class="alert-card critical">
+                <div class="alert-title">⚡ ALIBI DISCREPANCY DETECTED</div>
+                <div class="alert-details">
+                  <strong>Suspect Vikram Sharma</strong> claimed to be at Home (Location A) at 22:15 hrs in FIR Statement #4.
+                  <br><span class="highlight-red">LOCATION MISMATCH:</span> Phone ping recorded at Crime Scene Sector 4 at 22:14:32 hrs.
+                </div>
+                <div class="alert-citation">Ref: Call Detail Record vs Witness Statement P.14</div>
+              </div>
+
+              <div class="alert-card warning">
+                <div class="alert-title">⚠️ TIMELINE GAP IDENTIFIED</div>
+                <div class="alert-details">
+                  42-minute unverified gap between security exit timestamp (21:30) and Forensic Estimated Time window.
+                </div>
+                <div class="alert-citation">Ref: Autopsy & Security Log §2</div>
+              </div>
+
+              <div class="alert-card info">
+                <div class="alert-title">🔍 MODUS OPERANDI OVERLAP</div>
+                <div class="alert-details">
+                  Enclosure key lock bypass matches unresolved cold case FIR #104/2023.
+                </div>
+                <div class="alert-citation">Ref: Cross-Jurisdiction Correlation (91.2% Match)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-panel right-panel">
+            <div class="panel-header">
+              <h3>RANKED INVESTIGATIVE HYPOTHESES</h3>
+              <span class="badge badge-success">EXPLAINABLE AI REASONING</span>
+            </div>
+            <div class="panel-body">
+              
+              <div class="hypothesis-card rank-1">
+                <div class="hypo-top">
+                  <span class="rank-badge">RANK #1 · PRIMARY HYPOTHESIS</span>
+                  <span class="confidence-badge">88.4% CONFIDENCE</span>
+                </div>
+                <h4 class="hypo-title">Scenario A: Premeditated Financial Extortion & Targeted Breach</h4>
+                <p class="hypo-text">
+                  Evidence indicates Suspect V. Sharma colluded with accomplice R. Verma using spoofed credentials. Location pings cross-referenced with financial logs confirm presence at sector boundary.
+                </p>
+                <div class="hypo-citations">
+                  <span class="chip">Statement #4 P.8</span>
+                  <span class="chip">Call Record #238</span>
+                  <span class="chip">Forensic Log §9</span>
+                </div>
+                <div class="hypo-actions">
+                  <button class="btn-sm btn-outline" onclick="simulateCounterfactual('A')">🧪 TEST COUNTERFACTUAL</button>
+                  <button class="btn-sm btn-outline" onclick="exportHypothesis('A')">📄 EXPORT DOSSIER</button>
+                </div>
+              </div>
+
+              <div class="hypothesis-card rank-2">
+                <div class="hypo-top">
+                  <span class="rank-badge">RANK #2 · ALTERNATIVE SCENARIO</span>
+                  <span class="confidence-badge">64.1% CONFIDENCE</span>
+                </div>
+                <h4 class="hypo-title">Scenario B: Inside Collusion & Secondary Evidence Tampering</h4>
+                <p class="hypo-text">
+                  Discrepancy in security access logs suggests unlisted entry via maintenance corridor B-3 prior to power disruption.
+                </p>
+                <div class="hypo-citations">
+                  <span class="chip">Camera Log 12</span>
+                  <span class="chip">Access Log L42</span>
+                </div>
+                <div class="hypo-actions">
+                  <button class="btn-sm btn-outline" onclick="simulateCounterfactual('B')">🧪 TEST COUNTERFACTUAL</button>
+                  <button class="btn-sm btn-outline" onclick="exportHypothesis('B')">📄 EXPORT DOSSIER</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="hero-graph-box" style="margin-top: 30px;">
+          <div class="box-header">
+            <div class="box-title"><span class="pulse-red"></span> SECURE CASE LINK TOPOLOGY CANVASES</div>
+            <div class="box-badge">AUTHENTICATED GRAPH CANVAS</div>
+          </div>
+          <div class="box-canvas-wrapper">
+            <canvas id="hero-graph-canvas" width="1100" height="420"></canvas>
+            <div class="graph-overlay-info">
+              <span class="legend-item red-dot">🔴 Suspects</span>
+              <span class="legend-item blue-dot">🔵 Victims / Witnesses</span>
+              <span class="legend-item yellow-dot">🟡 Cell Towers / Locations</span>
+              <span class="legend-item dashed-edge">⚡ Dashed: Conflicts</span>
+            </div>
+          </div>
+          <div class="box-footer">
+            <span>Interactive link analysis canvas active. Drag or click nodes to inspect linkages.</span>
+            <button class="btn-sm btn-outline" id="btn-reset-graph" onclick="resetGraphCanvas()">RESET GRAPH</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-only">
+        <div class="copyright">
+          © 2026 ALETHEIA · CASEMIND AI. All rights reserved. Sovereign Law Enforcement Intelligence System.
+        </div>
+        <div class="terminal-clock" id="live-terminal-clock">
+          UTC: 2026-10-03 00:09:00 | STATUS: ENCRYPTED
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app_glass.js"></script>
+</body>
+</html>
